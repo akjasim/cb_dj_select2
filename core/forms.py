@@ -8,12 +8,14 @@ class EntryCreationForm(forms.ModelForm):
         model = Entry
         fields = '__all__'
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['language'].queryset = Language.objects.none()
-    #
-    #     if 'language' in self.data:
-    #         self.fields['language'].queryset = Language.objects.all()
-    #
-    #     elif self.instance.pk:
-    #         self.fields['language'].queryset = Language.objects.all().filter(pk=self.instance.language.pk)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['language'].queryset = Language.objects.none()
+
+        if 'language' in self.data:
+            self.fields['language'].queryset = Language.objects.all()
+
+        elif self.instance:
+            self.fields['language'].queryset = Language.objects.all().filter(pk=self.instance.language.pk)
+
+
