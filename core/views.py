@@ -7,32 +7,13 @@ from core.models import Entry, Language
 
 
 def home(request):
-
-    # Update logic
-
-    # form = EntryCreationForm(instance=Entry.objects.first())
-    # if request.is_ajax():
-    #     term = request.GET.get('term')
-    #     languages = Language.objects.all().filter(title__icontains=term)
-    #     response_content = list(languages.values())
-    #     return JsonResponse(response_content, safe=False)
-    # if request.method == 'POST':
-    #     form = EntryCreationForm(request.POST, instance=Entry.objects.first())
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('home')
-    # return render(request, 'core/home.html', {'form': form})
-
-    # Create logic
-
-    form = EntryCreationForm()
+    form = EntryCreationForm(instance=Entry.objects.first())
     if request.is_ajax():
         term = request.GET.get('term')
         languages = Language.objects.all().filter(title__icontains=term)
-        response_content = list(languages.values())
-        return JsonResponse(response_content, safe=False)
+        return JsonResponse(list(languages.values()), safe=False)
     if request.method == 'POST':
-        form = EntryCreationForm(request.POST)
+        form = EntryCreationForm(request.POST, instance=Entry.objects.first())
         if form.is_valid():
             form.save()
             return redirect('home')

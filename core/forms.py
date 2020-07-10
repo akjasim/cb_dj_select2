@@ -17,5 +17,3 @@ class EntryCreationForm(forms.ModelForm):
 
         elif self.instance.pk:
             self.fields['language'].queryset = Language.objects.all().filter(pk=self.instance.language.pk)
-
-
